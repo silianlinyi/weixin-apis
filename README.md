@@ -1,4 +1,9 @@
-### 微信 API For Nodejs
+## 微信 API For Nodejs
+
+### 交流
+
+欢迎大家加入QQ群：172342609 《微信 API For Nodejs》专用交流群
+
 
 **第一步** 加载模块
 
