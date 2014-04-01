@@ -1,0 +1,19 @@
+{
+	"name": "weixin-apis",
+	"version": "0.0.2",
+	"description": "Weixin API For Nodejs",
+	"main": "index.js",
+	"dependencies": {
+		"request": "~2.34.0",
+		"sha1": "~1.0.1",
+		"xml2js": "~0.2.6"
+	},
+	"devDependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/silianlinyi/weixin-api.git"
+	},
+	"keywords": ["weixin", "api", "wechat", "微信"],
+	"author": "kyle",
+	"license": "MIT"
+}
