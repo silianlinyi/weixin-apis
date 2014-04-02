@@ -75,14 +75,70 @@ weixin.on('videoMsg', function(data) {
 weixin.on('locationMsg', function(data) {
 	console.log('>>>>>>>>> locationMsg emit >>>>>>>>>');
 	console.log(data);
+	// TODO
+});
+```
+
+#### 监听链接消息
+
+```
+weixin.on('linkMsg', function(data) {
+	console.log('>>>>>>>>> linkMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
 });
 ```
 
 
+#### 监听关注事件
 
+```
+weixin.on('subscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> subscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
 
+#### 监听取消关注事件
 
+```
+weixin.on('unsubscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> unsubscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
 
+#### 监听上报地理位置事件
+
+```
+weixin.on('locationEventMsg', function(data) {
+	console.log('>>>>>>>>> locationEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听点击菜单拉取消息时的事件推送
+
+```
+weixin.on('clickEventMsg', function(data) {
+	console.log('>>>>>>>>> clickEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听点击菜单跳转链接时的事件推送
+
+```
+weixin.on('viewEventMsg', function(data) {
+	console.log('>>>>>>>>> viewEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
 
 
 
