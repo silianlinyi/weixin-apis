@@ -4,6 +4,15 @@
 
 欢迎大家加入QQ群：172342609 《微信 API For Nodejs》专用交流群
 
+## API
+
+* [weixin.configurate](#weixinconfigurate)
+
+
+
+
+
+### weixin.configurate
 
 **第一步** 加载模块
 
