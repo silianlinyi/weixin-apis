@@ -16,9 +16,18 @@ weixin.configurate({
 });
 ```
 
-#### weixin.checkSignature
+#### weixin.checkSignature 验证消息真实性
 
-
+```
+// 接入验证
+app.get('/verify', function(req, res) {
+	if (weixin.checkSignature(req)) {
+		res.send(200, req.query.echostr);
+	} else {
+		res.send(200, 'fail');
+	}
+});
+```
 
 **第一步** 加载模块
 
