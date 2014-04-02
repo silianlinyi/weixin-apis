@@ -6,13 +6,19 @@
 
 ## API
 
-* [weixin.configurate](#weixinconfigurate)
+#### weixin.configurate 微信接入配置
+
+```
+weixin.configurate({
+	token : '这是你的token',
+	appid : '这是你的appid',
+	secret : '这是你的secret'
+});
+```
+
+#### weixin.checkSignature
 
 
-
-
-
-### weixin.configurate
 
 **第一步** 加载模块
 
