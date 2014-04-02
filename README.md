@@ -29,6 +29,79 @@ app.get('/verify', function(req, res) {
 });
 ```
 
+#### 监听文本消息
+
+```
+weixin.on('textMsg', function(data) {
+	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听图片消息
+
+```
+weixin.on('imageMsg', function(data) {
+	console.log('>>>>>>>>> imageMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听语音消息
+
+```
+weixin.on('voiceMsg', function(data) {
+	console.log('>>>>>>>>> voiceMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听视频消息
+
+```
+weixin.on('videoMsg', function(data) {
+	console.log('>>>>>>>>> videoMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听地理位置消息
+
+```
+weixin.on('locationMsg', function(data) {
+	console.log('>>>>>>>>> locationMsg emit >>>>>>>>>');
+	console.log(data);
+});
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **第一步** 加载模块
 
 ```
