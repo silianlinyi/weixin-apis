@@ -1,71 +1,156 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="" />
+		<meta charset="utf-8" />
 		<title>微信API For NodeJS</title>
-		<link rel="stylesheet" type="text/css" href="css/semantic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/semantic.css"/>
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑" arial "comic sans ms";
+			}
+
+		</style>
 	</head>
 	<body>
 		<div class="ui left sidebar vertical menu active">
-			<div class="header item"><i class="list layout icon"></i>新手接入</div>
-			<a href="" class="item">接入指南</a>
-			<a href="" class="item">典型案例介绍</a>
-			<a href="" class="item">开发者规范</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>基础支持</div>
+			<div class="header item">
+				<i class="list layout icon"></i>一、新手接入
+			</div>
+			<a href="#接入指南" class="item">接入指南</a>
+			<a href="#典型案例介绍" class="item">典型案例介绍</a>
+			<a href="#开发者规范" class="item">开发者规范</a>
+
+			<div class="header item">
+				<i class="list layout icon"></i>二、基础支持
+			</div>
 			<a href="" class="item">获取access_token</a>
 			<a href="" class="item">全局返回码说明</a>
 			<a href="" class="item">接口频率限制说明</a>
 			<a href="" class="item">上传下载多媒体文件</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>接受消息</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>三、接受消息
+			</div>
 			<a href="" class="item">验证消息真实性</a>
 			<a href="" class="item">接收普通消息</a>
 			<a href="" class="item">接收事件推送</a>
 			<a href="" class="item">接收语音识别结果</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>发送消息</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>四、发送消息
+			</div>
 			<a href="" class="item">发送被动响应消息</a>
 			<a href="" class="item">发送客服消息</a>
 			<a href="" class="item">高级群发接口</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>用户管理</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>五、用户管理
+			</div>
 			<a href="" class="item">分组管理接口</a>
 			<a href="" class="item">获取用户基本信息</a>
 			<a href="" class="item">获取关注者列表</a>
 			<a href="" class="item">获取用户地理位置</a>
 			<a href="" class="item">网页授权获取用户基本信息</a>
 			<a href="" class="item">网页获取用户网络状态（JS接口）</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>自定义菜单</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>六、自定义菜单
+			</div>
 			<a href="" class="item">自定义菜单创建接口</a>
 			<a href="" class="item">自定义菜单查询接口</a>
 			<a href="" class="item">自定义菜单删除接口</a>
 			<a href="" class="item">自定义菜单事件推送</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>推广支持</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>七、推广支持
+			</div>
 			<a href="" class="item">生成带参数的二维码</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>Weixin JS接口</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>八、Weixin JS接口
+			</div>
 			<a href="" class="item">隐藏微信中网页右上角按钮</a>
 			<a href="" class="item">隐藏微信中网页底部导航栏</a>
 			<a href="" class="item">网页获取用户网络状态</a>
-			
-			
-			<div class="header item"><i class="list layout icon"></i>开发者交流互动</div>
+
+			<div class="header item">
+				<i class="list layout icon"></i>九、开发者交流互动
+			</div>
 			<a href="" class="item">开发者问答系统</a>
 			<a href="" class="item">接口调试工具</a>
 			<a href="" class="item">接口体验测试号申请</a>
+
+		</div>
+
+		<div class="container" >
+			<h1 class="ui center black aligned header">微信API for NodeJS</h1>
 			
+			<div class="ui horizontal icon divider">
+				<i class="circular leaf icon"></i>
+			</div>
+			<h2 class="ui red header">一、新手接入</h2>
+			<h3 class="ui header" id="接入指南">1.1 接入指南</h3>
+
+			<h3 class="ui header" id="典型案例介绍">1.2 典型案例介绍</h3>
+			<p>
+				值得借鉴的公众帐号主要是服务号，试列举并介绍如下：
+			</p>
+			<h4 class="ui header">招商银行信用卡中心</h4>
+			<img src="http://mp.weixin.qq.com/wiki/images/thumb/9/95/%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C.png/600px-%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C.png" alt="" />
+			<p>
+				如果你是持卡人，可快捷查询信用卡账单、额度及积分；快速还款、申请账单分期；微信转接人工服务；信用卡消费，微信免费笔笔提醒。如果不是持卡人，可以微信办卡！
+			</p>
+			<div class="ui secondary left floated segment">
+				招商银行公众号通过提示消息引导用户将自己的微信号和信用卡号安全绑定。
+				<br />
+				用户可以通过该公众号查询账单、收取刷卡通知等功能，这是由招行开发人员通过公众号接口实现的功能。
+			</div>
+			<div class="clearfix"></div>
+			<h4 class="ui header">中国南方航空</h4>
+			<img src="http://mp.weixin.qq.com/wiki/images/thumb/f/f3/%E5%8D%97%E6%96%B9%E8%88%AA%E7%A9%BA.png/600px-%E5%8D%97%E6%96%B9%E8%88%AA%E7%A9%BA.png" alt="" />
+			<p>
+				你可以办理值机手续，挑选座位，查询航班信息，查询目的地城市天气，并为明珠会员提供专业的服务。
+			</p>
+			<div class="ui secondary left floated segment">
+				南方航空公众号可以让用户将明珠会员服务和微信号绑定起来。
+				<br />
+				用户可以通过该公众号预订机票、查询订单，甚至办理登机牌。
+			</div>
+			<div class="clearfix"></div>
+			<h4 class="ui header">广东联通</h4>
+			<img src="http://mp.weixin.qq.com/wiki/images/thumb/c/c9/%E5%B9%BF%E4%B8%9C%E8%81%94%E9%80%9A.png/600px-%E5%B9%BF%E4%B8%9C%E8%81%94%E9%80%9A.png" alt="" />
+			<p>
+				你可以在微信里绑定手机号、积分流量，套餐余量、手机上网流量，微信专属流量查询，客服咨询。
+			</p>
+			<div class="ui secondary left floated segment">
+				广东联通公众号可以绑定手机号，来查询流量、套餐等等功能。
+				<br />
+				广东联通更与微信深度合作，购买微信沃卡可以获得微信五大特权。
+			</div>
+			<div class="clearfix"></div>
+
+			<h3 class="ui header" id="开发者规范">1.3 开发者规范</h3>
+
+			<div class="ui horizontal icon divider">
+				<i class="circular leaf icon"></i>
+			</div>
+
+			<h2 class="ui red header">二、基础支持</h2>
+
+			<h2 class="ui red header">三、接受消息</h2>
+
+			<h2 class="ui red header">四、发送消息</h2>
 			
+			<h2 class="ui red header">五、用户管理</h2>
+			
+			<h2 class="ui red header">六、自定义菜单</h2>
+			
+			<h2 class="ui red header">七、推广支持</h2>
+			
+			<h2 class="ui red header">八、Weixin JS接口</h2>
 		</div>
 	</body>
 </html>
