@@ -109,14 +109,14 @@
 			<pre><code>var data = weixin.getCacheAccessTokenSync();
 var access_token = data.access_token;
 var expires_in = data.expires_in;
-</code></pre>																																																									
+</code></pre>																																																															
 
  <h4 class="ui header">getAccessToken：从微信服务器获取一个新的access_token</h4>
 			<pre><code>weixin.getAccessToken(function(data) {
 	var ret = JSON.parse(data);
 	var access_token = ret.access_token;
 	var expires_in = ret.expires_in;
-});</code></pre>																																																									
+});</code></pre>																																																															
 
  <h3 class="ui header" id="上传下载多媒体文件">2.4 上传下载多媒体文件</h3>
 
@@ -425,7 +425,7 @@ var expires_in = data.expires_in;
 	console.log('>>>>>>>>> linkMsg emit >>>>>>>>>');
 	console.log(data);
 	// TODO
-});</code></pre>																																																									
+});</code></pre>																																																															
 			
  <h3 class="ui header" id="接收事件推送">3.3 接收事件推送</h3>
 			<h4 class="ui header">（1） 关注/取消关注事件</h4>
@@ -1010,7 +1010,9 @@ weixin.on('textMsg', function(data) {
 		break;
 	}
 	weixin.sendMsg(msg);
-});</code></pre>			
+});</code></pre>									
+
+
 
 
 			<p>
@@ -1077,6 +1079,17 @@ weixin.on('textMsg', function(data) {
 			</table>
 
 			<h3 class="ui header" id="发送客服消息">4.2 发送客服消息</h3>
+			<p>
+				当用户主动发消息给公众号的时候（包括发送信息、点击自定义菜单、订阅事件、扫描二维码事件、支付成功事件、用户维权），微信将会把消息数据推送给开发者，开发者在一段时间内（目前修改为48小时）可以调用客服消息接口，通过POST一个JSON数据包来发送消息给普通用户，在48小时内不限制发送次数。此接口主要用于客服等有人工消息处理环节的功能，方便开发者为用户提供更加优质的服务。
+			</p>
+			<h4 class="ui header">（1）发送文本消息</h4>
+
+			<h4 class="ui header">（2）发送图片消息</h4>
+			<h4 class="ui header">（3）发送语音消息</h4>
+			<h4 class="ui header">（4）发送视频消息</h4>
+			<h4 class="ui header">（5）发送音乐消息</h4>
+			<h4 class="ui header">（6）发送图文消息</h4>
+
 			<h3 class="ui header" id="高级群发接口">4.3 高级群发接口</h3>
 
 			<div class="ui horizontal icon divider">
@@ -1099,6 +1112,10 @@ weixin.on('textMsg', function(data) {
 			</div>
 			<h2 class="ui red header">八、Weixin JS接口</h2>
 		</div>
+
+		<a href="https://github.com/silianlinyi/weixin-api" target="_blank">
+			<img style="position: fixed; top: 0; right: 0; border: 0;z-index: 10;" src="img/1dbSqT9ykm.png" width="149" height="149" alt="Fork me on GitHub" data-pinit="registered">
+		</a>
 
 		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 		<script type="text/javascript" src="js/semantic.js"></script>
