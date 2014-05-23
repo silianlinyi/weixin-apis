@@ -2,12 +2,14 @@ body {
 	margin: 0;
 	padding: 0;
 }
+.ui.sidebar {
+	top: 48px;
+}
 .clearfix {
 	clear: both;
 }
 .container {
-	padding-left: 300px;
-	padding: 15px 15px 15px 300px;
+	padding: 55px 15px 15px 300px;
 	background-color: #FAFAFA;
 }
 pre {
