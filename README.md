@@ -97,7 +97,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'text',
-				content : '回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）'
+				content : '这是一段文本'
 			};
 			break;
 		case '图片':
@@ -105,7 +105,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'image',
-				mediaId : '通过上传图片文件，得到的id'
+				mediaId : '9s-QtH37gd4SGuILFIYHq1XEWH0jVa1ZZk5I_LQ1AZESJPtc4NXpo0WCsgMfL2Hl'
 			};
 			break;
 		case '语音':
@@ -113,7 +113,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'voice',
-				mediaId : '通过上传语音文件，得到的id'
+				mediaId : 'kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012'
 			};
 			break;
 		case '视频':
@@ -121,9 +121,9 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'video',
-				title : '视频消息的标题',
-				description : '视频消息的描述',
-				mediaId : '通过上传视频文件，得到的id'
+				title : '这是视频的标题',
+				description : '这是视频的描述',
+				mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
 			};
 			break;
 		case '音乐':
@@ -131,10 +131,10 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'music',
-				title : "音乐标题",
-				description : "音乐描述",
-				musicUrl : '音乐链接',
-				thumbMediaId : '缩略图的媒体id，通过上传多媒体文件，得到的id'
+				title : "这是音乐标题",
+				description : "这是音乐描述",
+				musicUrl : 'http://xihumaker.jios.org/voice/welcome.mp3',
+				thumbMediaId : 'kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012'
 			};
 			break;
 		case '图文':
@@ -204,7 +204,9 @@ weixin.on('videoMsg', function(data) {
 		toUserName : data.fromUserName,
 		fromUserName : data.toUserName,
 		msgType : 'video',
-		mediaId : '-jI7RharH0_mhI9cN0gLDLrkXZYPbkzCTGcNQzuaRcT4PP2klByRb0RfaagZj_Ob'
+		title : '这是视频的标题',
+		description : '这是视频的描述',
+		mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
 	};
 	weixin.sendMsg(msg);
 });
@@ -253,58 +255,58 @@ weixin.on('viewEventMsg', function(data) {
 
 // 客服消息 - 文本
 //weixin.sendCustomMsg({
-//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType : 'text',
 //	content : "这是一段文本"
-//}, function(err, res, body) {// 回调函数，可选
-//	console.log(body);
+//}, function(data) {// 回调函数，可选
+//	console.log(data);
 //});
 
 // 客服消息 - 图片
 //weixin.sendCustomMsg({
-//	toUserName: 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName: 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType: 'image',
-//	mediaId: 'QMzNj-GD7BI_VGiAqc5ONW2CnTDGfRmem1hVdK_nR1p-WEQEb_2W4jfARp5nFn1K'
-//}, function(err, res, body) {
-//	console.log(body);
+//	mediaId: '9s-QtH37gd4SGuILFIYHq1XEWH0jVa1ZZk5I_LQ1AZESJPtc4NXpo0WCsgMfL2Hl'
+//}, function(data) {
+//	console.log(data);
 //});
 
 // 客服消息 - 语音
 //weixin.sendCustomMsg({
-//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType : 'voice',
-//	mediaId : '6XL3LGUAhcw9MEYbCzQq-k90j-9B_jxCD24M3uMqexqUljJlzJ7_w4BrjlQDwT3B'
-//}, function(err, res, body) {
-//	console.log(body);
+//	mediaId : 'vzM6g1mOhtfovAttPKkWvC217xEIEHyB9vqYIbfnDOWbCBQtCHDDo38W8-qVIhgT'
+//}, function(data) {
+//	console.log(data);
 //});
 
 // 客服消息 - 视频
 //weixin.sendCustomMsg({
-//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType : 'video',
 //	title: '这是视频标题',
 //	description: '这是视频描述',
-//	mediaId : '-jI7RharH0_mhI9cN0gLDLrkXZYPbkzCTGcNQzuaRcT4PP2klByRb0RfaagZj_Ob'
-//}, function(err, res, body) {
-//	console.log(body);
+//	mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
+//}, function(data) {
+//	console.log(data);
 //});
 
 // 客服消息 - 音乐
 //weixin.sendCustomMsg({
-//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType : 'music',
 //	title : "this is title",
 //	description : "this is description",
-//	musicUrl : "http://xihumaker.jios.org/voice/welcome.mp3",
-//	HQMusicUrl : "",
-//	thumbMediaId : "QMzNj-GD7BI_VGiAqc5ONW2CnTDGfRmem1hVdK_nR1p-WEQEb_2W4jfARp5nFn1K"
-//}, function(err, res, body) {
-//	console.log(body);
+//	musicUrl : "http://xihumaker.jios.org/voice/0.mp3",
+//	HQMusicUrl : "http://xihumaker.jios.org/voice/0.mp3",
+//	thumbMediaId : "kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012"
+//}, function(data) {
+//	console.log(data);
 //});
 
 // 客服消息 - 图文
 //weixin.sendCustomMsg({
-//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
+//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
 //	msgType : 'news',
 //
 //	articles : [{
@@ -319,8 +321,8 @@ weixin.on('viewEventMsg', function(data) {
 //		url : "http://www.csdn.net/article/2014-03-07/2818676-baidu-clouda"
 //	}]
 //
-//}, function(err, res, body) {
-//	console.log(body);
+//}, function(data) {
+//	console.log(data);
 //});
 
 app.listen(80);
