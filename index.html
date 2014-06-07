@@ -735,7 +735,7 @@ weixin.on('unsubscribeEventMsg', function(data) {
 				</tbody>
 			</table>
 
-			<h4 class="ui header">（3）上报地理位置事件</h4>
+			<h4 class="ui header" id="上报地理位置事件">（3）上报地理位置事件</h4>
 			<p>
 				用户同意上报地理位置后，每次进入公众号会话时，都会在进入时上报地理位置，或在进入会话后每5秒上报一次地理位置，公众号可以在公众平台网站中修改以上设置。上报地理位置时，微信会将上报地理位置事件推送到开发者填写的URL。
 			</p>
@@ -2137,19 +2137,141 @@ weixin.on('textMsg', function(data) {
 			<pre><code>{"errcode":40013,"errmsg":"invalid appid"}</code></pre>
 			
 			<h3 class="ui header" id="获取关注者列表">3  获取关注者列表</h3>
+			<p>公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。
+				一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求。</p>
+			<p>示例：</p>
+			<pre><code>weixin.getUsers('', function(data) {
+	console.log(data);
+});</code></pre>
+			<p>参数说明：</p>
+			<table border="1" cellspacing="0" cellpadding="5">
+				<tbody>
+					<tr>
+						<th style="width:120px">参数 </th>
+						<th style="width:120px">是否必须 </th>
+						<th>说明 </th>
+					</tr>
+					<tr>
+						<td> next_openid </td>
+						<td> 是 </td>
+						<td> 第一个拉取的OPENID，不填默认从头开始拉取 </td>
+					</tr>
+				</tbody>
+			</table>
+			<p>正确时返回JSON数据包：</p>
+			<pre><code>{
+	"total" : 2,
+	"count" : 2,
+	"data" : {
+		"openid" : ["OPENID1", "OPENID2"]
+	},
+	"next_openid" : "NEXT_OPENID"
+}</code></pre>
+			
+			<p>参数说明：</p>
+			<table border="1" cellspacing="0" cellpadding="5">
+				<tbody>
+					<tr>
+						<th style="width:320px">参数 </th>
+						<th>说明 </th>
+					</tr>
+					<tr>
+						<td> total </td>
+						<td> 关注该公众账号的总用户数 </td>
+					</tr>
+					<tr>
+						<td> count </td>
+						<td> 拉取的OPENID个数，最大值为10000 </td>
+					</tr>
+					<tr>
+						<td> data </td>
+						<td> 列表数据，OPENID的列表 </td>
+					</tr>
+					<tr>
+						<td> next_openid </td>
+						<td> 拉取列表的后一个用户的OPENID </td>
+					</tr>
+				</tbody>
+			</table>
+			<p>错误时返回JSON数据包（示例为无效AppID错误）：</p>
+			<pre><code>{"errcode":40013,"errmsg":"invalid appid"}</code></pre>
+			<p><strong>附：关注者数量超过10000时</strong></p>
+			<p>当公众号关注者数量超过10000时，可通过填写next_openid的值，从而多次拉取列表的方式来满足需求。
+具体而言，就是在调用接口时，将上一次调用得到的返回中的next_openid值，作为下一次调用中的next_openid值。</p>
+			<p>示例如下：</p>
+			<pre><code>// 第一次调用
+weixin.getUsers('', function(data) {
+	console.log(data);
+});
+// 返回结果
+{
+	"total" : 23000,
+	"count" : 10000,
+	"data" : {
+		"openid" : ["OPENID1", "OPENID2", "...", "OPENID10000"]
+	},
+	"next_openid" : "NEXT_OPENID1"
+}
+// 第二次调用
+weixin.getUsers("NEXT_OPENID1", function(data) {
+	console.log(data);
+});
+// 返回结果
+{
+	"total" : 23000,
+	"count" : 10000,
+	"data" : {
+		"openid" : ["OPENID10001", "OPENID10002", "...", "OPENID20000"]
+	},
+	"next_openid" : "NEXT_OPENID2"
+}
+// 第三次调用
+weixin.getUsers("NEXT_OPENID2", function(data) {
+	console.log(data);
+});
+// 返回结果
+{
+	"total" : 23000,
+	"count" : 3000,
+	"data" : {
+		"openid" : ["OPENID20001", "OPENID20002", "...", "OPENID23000"]
+	},
+	"next_openid" : " "
+}
+			</code></pre>
+			
+			
+			
 			<h3 class="ui header" id="获取用户地理位置">4  获取用户地理位置</h3>
-			<h3 class="ui header" id="网页授权获取用户基本信息">5  网页授权获取用户基本信息</h3>
+			<p>开通了上报地理位置接口的公众号，用户在关注后进入公众号会话时，会弹框让用户确认是否允许公众号使用其地理位置。弹框只在关注后出现一次，用户以后可以在公众号详情页面进行操作。</p>
+			<p>用户同意上报地理位置后，每次进入公众号会话时，都会在进入时上报地理位置，上报地理位置以推送XML数据包到开发者填写的URL来实现。</p>
+			<p>详见：<a href="#上报地理位置事件">上报地理位置事件</a></p>
+			
+			
+			<h3 class="ui header" id="网页授权获取用户基本信息">5  网页授权获取用户基本信息（TODO）</h3>
+			
 			<h3 class="ui header" id="网页获取用户网络状态">6  网页获取用户网络状态（JS接口）</h3>
+			<p>为了方便开发者根据用户的网络状态来提供不同质量的服务，公众号可以在公众号内部的网页中使用JavaScript代码调用来获取网络状态。</p>	
+			<p>接口调用代码（JavaScript）</p>
+			<pre><code>WeixinJSBridge.invoke('getNetworkType', {}, function(e) {
+	WeixinJSBridge.log(e.err_msg);
+});</code></pre>
+			<p>获取用户网络状态的返回值如下：</p>
+			<pre><code>network_type:wifi wifi网络
+network_type:edge 非wifi,包含3G/2G
+network_type:fail 网络断开连接</code></pre>
 			
-			
-			
+			<h2 class="ui red header">多客服功能（TODO）</h2>
+			<h3 class="ui header" id="将消息转发到多客服">1  将消息转发到多客服</h3>
+			<h3 class="ui header" id="获取客服聊天记录">2  获取客服聊天记录</h3>
+			<h3 class="ui header" id="PC客户端自定义插件接口">3  PC客户端自定义插件接口</h3>
 			
 			
 
 			<div class="ui horizontal icon divider">
 				<i class="circular leaf icon"></i>
 			</div>
-			<h2 class="ui red header">六、自定义菜单</h2>
+			<h2 class="ui red header">自定义菜单</h2>
 			<p>
 				目前自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替。请注意，创建自定义菜单后，由于微信客户端缓存，需要24小时微信客户端才会展现出来。建议测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。
 			</p>
@@ -2162,7 +2284,7 @@ view：<br />
 			</div>
 			
 			
-			<h3 class="ui header" id="自定义菜单创建接口">6.1 自定义菜单创建接口</h3>
+			<h3 class="ui header" id="自定义菜单创建接口">1 自定义菜单创建接口</h3>
 			<p>示例：</p>
 			<pre><code>var menu = {
 	"button" : [{
@@ -2196,6 +2318,8 @@ weixin.createMenu(menu, function(data) {
 });</code></pre>
 			<p>创建成功时回调函数data返回结果：</p>
 			<pre><code>{ errcode: 0, errmsg: 'ok' }</code></pre>
+			<p>错误时的返回JSON数据包如下（示例为无效菜单名长度）：</p>
+			<pre><code>{"errcode":40018,"errmsg":"invalid button name size"}</code></pre>
 			<p>参数说明：</p>
 			<table border="1" cellspacing="0" cellpadding="5">
 				<tbody>
@@ -2237,7 +2361,7 @@ weixin.createMenu(menu, function(data) {
 				</tbody>
 			</table>
 			
-			<h3 class="ui header" id="自定义菜单查询接口">6.2 自定义菜单查询接口</h3>
+			<h3 class="ui header" id="自定义菜单查询接口">2 自定义菜单查询接口</h3>
 			<p>
 				使用接口创建自定义菜单后，开发者还可使用接口查询自定义菜单的结构。
 			</p>
@@ -2287,7 +2411,7 @@ weixin.createMenu(menu, function(data) {
 			</p>
 			<pre><code>{ errcode: 46003, errmsg: 'menu no exist' }</code></pre>																		
 			
- <h3 class="ui header" id="自定义菜单删除接口">6.3 自定义菜单删除接口</h3>
+ <h3 class="ui header" id="自定义菜单删除接口">3 自定义菜单删除接口</h3>
 			<p>
 				使用接口创建自定义菜单后，开发者还可使用接口删除当前使用的自定义菜单。
 			</p>
@@ -2299,7 +2423,7 @@ weixin.createMenu(menu, function(data) {
 			</p>
 			<pre><code>{ errcode: 0, errmsg: 'ok' }</code></pre>																		
 			
- 			<h3 class="ui header" id="自定义菜单事件推送">6.4 自定义菜单事件推送</h3>
+ 			<h3 class="ui header" id="自定义菜单事件推送">4 自定义菜单事件推送</h3>
  			<p>
 				用户点击自定义菜单后，微信会把点击事件推送给开发者，请注意，点击菜单弹出子菜单，不会产生上报。
 			</p>
@@ -2410,8 +2534,8 @@ weixin.createMenu(menu, function(data) {
 			<div class="ui horizontal icon divider">
 				<i class="circular leaf icon"></i>
 			</div>
-			<h2 class="ui red header">七、推广支持</h2>
-			<h3 class="ui header" id="生成带参数的二维码">7.1 生成带参数的二维码</h3>
+			<h2 class="ui red header">推广支持</h2>
+			<h3 class="ui header" id="生成带参数的二维码">1 生成带参数的二维码</h3>
 			<p>为了满足用户渠道推广分析的需要，公众平台提供了生成带参数二维码的接口。使用该接口可以获得多个带不同场景值的二维码，用户扫描后，公众号可以接收到事件推送。</p>
 			<p>目前有2种类型的二维码，分别是临时二维码和永久二维码，前者有过期时间，最大为1800秒，但能够生成较多数量，后者无过期时间，数量较少（目前参数只支持1--100000）。两种二维码分别适用于帐号绑定、用户来源统计等场景。</p>
 			<p>用户扫描带场景值二维码时，可能推送以下两种事件：</p>

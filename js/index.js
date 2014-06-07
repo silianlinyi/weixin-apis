@@ -5,6 +5,4 @@ $(function() {
 		$(this).siblings().css('display', 'block');
 	});
 
-	
-
 });
