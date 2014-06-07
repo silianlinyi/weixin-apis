@@ -1,23 +1,30 @@
 body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Microsoft Yahei', 宋体, Tahoma, Arial;
 }
 .ui.sidebar {
 	top: 48px;
+	padding-bottom: 48px;
+}
+#sidebar a.item {
+	display: none;
+}
+#sidebar .header.item {
+	cursor: pointer;
 }
 .clearfix {
 	clear: both;
 }
 .container {
 	padding: 55px 15px 15px 300px;
-	background-color: #FAFAFA;
 }
 pre {
 	margin: 0;
 }
 code {
 	font-size: 16px;
-	font-family: courier, monaco, sans-serif;
+	font-family: Consolas, 'Courier New', monospace;
 }
 
 /* 滚动条 */
