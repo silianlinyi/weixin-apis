@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>5分钟快速开发一个微信公众号</title>
+		<link rel="stylesheet" type="text/css" href="css/semantic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/monokai.css"/>
+		<script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+		<script>
+			hljs.initHighlightingOnLoad();
+		</script>
+		<style type="text/css">
+			.ui.segment {
+				padding: 20px;
+				margin-bottom: 30px !important;
+			}
+			.page {
+                width: 1000px;
+                position: relative;
+                left: 50%;
+                margin-left: -500px;
+            }
+            .inlinecode {
+            	background: #008080;
+				padding: 2px 5px;
+				color: #FFF;
+            }
+		</style>
+	</head>
+	<body>
+		
+		<div class="ui transparent inverted red large menu">
+			<a class="active item" href="./rapidDevelopment.html"><i class="code icon"></i> 5分钟快速开发</a>
+			<a class="item" href="./index.html">API Document</a>
+			<a class="item" href="https://github.com/silianlinyi/weixin-apis/archive/master.zip">Download</a>
+			<a class="item" href="./about.html">About Me</a>
+		</div>
+		
+		<div class="page">
+			<h2 class="ui black center aligned header">5分钟快速开发一个微信公众号</h2>
+			
+			<div class="ui raised segment">
+				<p>这只是一个简单的示例，后续我会写一个详细的例子。</p>
+				<p>欢迎大家加入QQ群：172342609 《微信 API For Nodejs》专用交流群</p>
+				<p>如果在使用过程中有任何疑问，可以发邮件给我，邮箱：244098979@qq.com</p>
+			</div>
+			
+			<div class="ui raised segment">
+			
+				<h3 class="ui header black">第一步 新建一个express项目</h3>
+				<p>在控制台下运行命令<a class="inlinecode">express -e weixin_demo</a>，如下所示：</p>
+				
+				<pre><code>D:\Dcloud\workspace>express -e weixin_demo
+
+   create : weixin_demo
+   create : weixin_demo/package.json
+   create : weixin_demo/app.js
+   create : weixin_demo/public
+   create : weixin_demo/public/javascripts
+   create : weixin_demo/public/images
+   create : weixin_demo/public/stylesheets
+   create : weixin_demo/public/stylesheets/style.css
+   create : weixin_demo/routes
+   create : weixin_demo/routes/index.js
+   create : weixin_demo/routes/users.js
+   create : weixin_demo/views
+   create : weixin_demo/views/index.ejs
+   create : weixin_demo/views/error.ejs
+   create : weixin_demo/bin
+   create : weixin_demo/bin/www
+
+   install dependencies:
+     $ cd weixin_demo && npm install
+
+   run the app:
+     $ DEBUG=weixin_demo ./bin/www</code></pre>
+     			
+     			<h3 class="ui header black">第二步 安装weixin-apis模块</h3>
+     			
+     			<h4 class="ui header black">（1）安装方式一</h4>
+				<p>在项目根目录下的package.json文件添加依赖声明：</p>
+				<img src="img/01.png"/>
+				<p>打开控制台，进入项目根目录，运行命令：<a class="inlinecode">npm install</a>，对于国内用户，经常安装失败，至于为什么，你懂得~</p>
+				<p>在这里推荐使用<a class="inlinecode">cnpm</a>，关于<strong>cnpm</strong>，可以查看<a href="http://cnpmjs.org/" target="_blank">http://cnpmjs.org/</a></p>
+				<p>通过cnpm安装weixin-apis，运行命令<a class="inlinecode">cnpm install</a></p>
+				
+				<h4 class="ui header black">（2）安装方式二</h4>
+				<p>进入项目根目录，运行命令<a class="inlinecode">npm install weixin-apis --save</a>或者<a class="inlinecode">cnpm install weixin-apis --save</a></p>
+				
+				<h3 class="ui header black">第三步 修改app.js文件：</h3>
+
+				<pre><code>var express = require('express');
+var weixin = require('weixin-apis');
+var app = express();
+
+// 微信接入配置
+weixin.configurate({
+	token : '这是你的TOKEN',
+	appid : '这是你的APPID',
+	secret : '这是你的SECRET'
+});
+
+// 接入验证
+app.get('/verify', function(req, res) {
+	if (weixin.checkSignature(req)) {
+		res.send(200, req.query.echostr);
+	} else {
+		res.send(200, 'fail');
+	}
+});
+
+// Start
+app.post('/verify', function(req, res) {
+	weixin.loop(req, res);
+});
+
+// 监听文本消息
+weixin.on('textMsg', function(data) {
+	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听图片消息
+weixin.on('imageMsg', function(data) {
+	console.log('>>>>>>>>> imageMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听语音消息
+weixin.on('voiceMsg', function(data) {
+	console.log('>>>>>>>>> voiceMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听视频消息
+weixin.on('videoMsg', function(data) {
+	console.log('>>>>>>>>> videoMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听地理位置消息
+weixin.on('locationMsg', function(data) {
+	console.log('>>>>>>>>> locationMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听链接消息
+weixin.on('linkMsg', function(data) {
+	console.log('>>>>>>>>> linkMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听关注事件
+weixin.on('subscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> subscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听取消关注事件
+weixin.on('unsubscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> unsubscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 扫描带参数二维码事件
+// 2. 用户已关注时的事件推送
+weixin.on("scanEventMsg", function(data) {
+	console.log('>>>>>>>>> scanEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听上报地理位置事件
+weixin.on('locationEventMsg', function(data) {
+	console.log('>>>>>>>>> locationEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听点击菜单拉取消息时的事件推送
+weixin.on('clickEventMsg', function(data) {
+	console.log('>>>>>>>>> clickEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+// 监听点击菜单跳转链接时的事件推送
+weixin.on('viewEventMsg', function(data) {
+	console.log('>>>>>>>>> viewEventMsg emit >>>>>>>>>');
+	console.log(data);
+});
+
+app.listen(80); </code></pre>
+
+				<p>更多API请参考：<a href="./index.html">API Document</a></p>
+				
+				
+				
+				
+				
+				
+				
+				
+     		</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</div>
+		
+	</body>
+</html>
