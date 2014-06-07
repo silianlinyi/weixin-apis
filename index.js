@@ -213,12 +213,12 @@ Weixin.prototype.parse = function(data) {
 /**
  * @method parseTextMsg
  * 文本消息
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		text
- * Content		文本消息内容
- * MsgId		消息id，64位整型
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		text
+ * content		文本消息内容
+ * msgId		消息id，64位整型
  */
 Weixin.prototype.parseTextMsg = function(data) {
 	var msg = {
@@ -236,13 +236,13 @@ Weixin.prototype.parseTextMsg = function(data) {
 /**
  * @method parseImageMsg
  * 图片消息
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType	 	image
- * PicUrl	 	图片链接
- * MediaId	 	图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
- * MsgId	 	消息id，64位整型
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType	 	image
+ * picUrl	 	图片链接
+ * mediaId	 	图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
+ * msgId	 	消息id，64位整型
  */
 Weixin.prototype.parseImageMsg = function(data) {
 	var msg = {
@@ -261,17 +261,17 @@ Weixin.prototype.parseImageMsg = function(data) {
 /*
  * @method parseVoiceMsg
  * 语音消息
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		语音为voice
- * MediaId	 	语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
- * Format	 	语音格式，如amr，speex等
- * MsgID	 	消息id，64位整型
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		语音为voice
+ * mediaId	 	语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+ * format	 	语音格式，如amr，speex等
+ * msgID	 	消息id，64位整型
  *
  * 开通语音识别功能，用户每次发送语音给公众号时，微信会在推送的语音消息XML数据包中，增加一个Recongnition字段。
  * 注：由于客户端缓存，开发者开启或者关闭语音识别功能，对新关注者立刻生效，对已关注用户需要24小时生效。开发者可以重新关注此帐号进行测试。
- * Recognition	 语音识别结果，UTF8编码
+ * recognition	 语音识别结果，UTF8编码
  */
 Weixin.prototype.parseVoiceMsg = function(data) {
 	var msg = {
@@ -291,13 +291,13 @@ Weixin.prototype.parseVoiceMsg = function(data) {
 /**
  * @method parseVideoMsg
  * 视频消息
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		视频为video
- * MediaId	 	视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
- * ThumbMediaId	视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
- * MsgId	 	消息id，64位整型
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		视频为video
+ * mediaId	 	视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+ * thumbMediaId	视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+ * msgId	 	消息id，64位整型
  */
 Weixin.prototype.parseVideoMsg = function(data) {
 	var msg = {
@@ -316,15 +316,15 @@ Weixin.prototype.parseVideoMsg = function(data) {
 /**
  * @method parseLocationMsg
  * 地理位置消息
- * ToUserName	开发者微信号
- * FromUserName	 发送方帐号（一个OpenID）
- * CreateTime	 消息创建时间 （整型）
- * MsgType	 	location
- * Location_X	 地理位置维度
- * Location_Y	 地理位置经度
- * Scale	 	地图缩放大小
- * Label	 	地理位置信息
- * MsgId	 	消息id，64位整型
+ * toUserName	开发者微信号
+ * fromUserName	 发送方帐号（一个OpenID）
+ * createTime	 消息创建时间 （整型）
+ * msgType	 	location
+ * location_X	 地理位置维度
+ * location_Y	 地理位置经度
+ * scale	 	地图缩放大小
+ * label	 	地理位置信息
+ * msgId	 	消息id，64位整型
  */
 Weixin.prototype.parseLocationMsg = function(data) {
 	var msg = {
@@ -345,14 +345,14 @@ Weixin.prototype.parseLocationMsg = function(data) {
 /**
  * @method parseLinkMsg
  * 链接消息
- * ToUserName	 接收方微信号
- * FromUserName	 发送方微信号，若为普通用户，则是一个OpenID
- * CreateTime	 消息创建时间
- * MsgType	 	消息类型，link
- * Title	 	消息标题
- * Description	消息描述
- * Url	 		消息链接
- * MsgId	 	消息id，64位整型
+ * toUserName	 接收方微信号
+ * fromUserName	 发送方微信号，若为普通用户，则是一个OpenID
+ * createTime	 消息创建时间
+ * msgType	 	消息类型，link
+ * title	 	消息标题
+ * description	消息描述
+ * url	 		消息链接
+ * msgId	 	消息id，64位整型
  */
 Weixin.prototype.parseLinkMsg = function(data) {
 	var msg = {
@@ -382,6 +382,9 @@ Weixin.prototype.parseEventMsg = function(data) {
 		case 'unsubscribe':
 			this.parseUnsubscribeEventMsg(data);
 			break;
+		case 'SCAN':
+			this.parseScanEventMsg(data);
+			break;
 		case 'LOCATION':
 			this.parseLocationEventMsg(data);
 			break;
@@ -399,11 +402,13 @@ Weixin.prototype.parseEventMsg = function(data) {
 /**
  * @method parseSubscribeEventMsg
  * 关注事件
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		消息类型，event
- * Event		事件类型，subscribe(订阅)
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		消息类型，event
+ * event		事件类型，subscribe(订阅)
+ * eventKey		事件KEY值，qrscene_为前缀，后面为二维码的参数值
+ * ticket		二维码的ticket，可用来换取二维码图片
  */
 Weixin.prototype.parseSubscribeEventMsg = function(data) {
 	var msg = {
@@ -412,7 +417,8 @@ Weixin.prototype.parseSubscribeEventMsg = function(data) {
 		"createTime" : data.CreateTime[0],
 		"msgType" : data.MsgType[0],
 		"event" : data.Event[0],
-		"eventKey" : data.EventKey
+		"eventKey" : data.EventKey[0],
+		"ticket" : data.Ticket[0]
 	};
 	this.emit('subscribeEventMsg', msg);
 	return this;
@@ -421,11 +427,11 @@ Weixin.prototype.parseSubscribeEventMsg = function(data) {
 /**
  * @method parseUnsubscribeEventMsg
  * 取消关注事件
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		消息类型，event
- * Event		事件类型，unsubscribe(取消订阅)
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		消息类型，event
+ * event		事件类型，unsubscribe(取消订阅)
  */
 Weixin.prototype.parseUnsubscribeEventMsg = function(data) {
 	var msg = {
@@ -441,18 +447,44 @@ Weixin.prototype.parseUnsubscribeEventMsg = function(data) {
 };
 
 /**
+ * @method parseScanEventMsg
+ * 扫描带参数二维码事件
+ * 用户已关注时的事件推送
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		消息类型，event
+ * event		事件类型，SCAN
+ * eventKey		事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
+ * ticket		二维码的ticket，可用来换取二维码图片
+ */
+Weixin.prototype.parseScanEventMsg = function(data) {
+	var msg = {
+		"toUserName" : data.ToUserName[0],
+		"fromUserName" : data.FromUserName[0],
+		"createTime" : data.CreateTime[0],
+		"msgType" : data.MsgType[0],
+		"event" : data.Event[0],
+		"eventKey" : data.EventKey[0],
+		"ticket" : data.Ticket[0]
+	};
+	this.emit('scanEventMsg', msg);
+	return this;
+};
+
+/**
  * @method parseLocationEventMsg
  * 上报地理位置事件
  * 用户同意上报地理位置后，每次进入公众号会话时，都会在进入时上报地理位置，或在进入会话后每5秒上报一次地理位置，
  * 公众号可以在公众平台网站中修改以上设置。上报地理位置时，微信会将上报地理位置事件推送到开发者填写的URL。
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType		消息类型，event
- * Event		事件类型，LOCATION
- * Latitude		地理位置纬度
- * Longitude	地理位置经度
- * Precision	地理位置精度
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType		消息类型，event
+ * event		事件类型，LOCATION
+ * latitude		地理位置纬度
+ * longitude	地理位置经度
+ * precision	地理位置精度
  */
 Weixin.prototype.parseLocationEventMsg = function(data) {
 	var msg = {
@@ -472,12 +504,12 @@ Weixin.prototype.parseLocationEventMsg = function(data) {
 /**
  * @method parseClickEventMsg
  * 点击菜单拉取消息时的事件推送
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType	 	消息类型，event
- * Event	 	事件类型，CLICK
- * EventKey	 	事件KEY值，与自定义菜单接口中KEY值对应
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType	 	消息类型，event
+ * event	 	事件类型，CLICK
+ * eventKey	 	事件KEY值，与自定义菜单接口中KEY值对应
  */
 Weixin.prototype.parseClickEventMsg = function(data) {
 	var msg = {
@@ -495,12 +527,12 @@ Weixin.prototype.parseClickEventMsg = function(data) {
 /**
  * @method parseViewEventMsg
  * 点击菜单跳转链接时的事件推送
- * ToUserName	开发者微信号
- * FromUserName	发送方帐号（一个OpenID）
- * CreateTime	消息创建时间 （整型）
- * MsgType	 	消息类型，event
- * Event	 	事件类型，VIEW
- * EventKey	 	事件KEY值，设置的跳转URL
+ * toUserName	开发者微信号
+ * fromUserName	发送方帐号（一个OpenID）
+ * createTime	消息创建时间 （整型）
+ * msgType	 	消息类型，event
+ * event	 	事件类型，VIEW
+ * eventKey	 	事件KEY值，设置的跳转URL
  */
 Weixin.prototype.parseViewEventMsg = function(data) {
 	var msg = {
@@ -563,7 +595,6 @@ Weixin.prototype.sendTextMsg = function(msg) {
 					"<MsgType><![CDATA[text]]></MsgType>"+
 					"<Content><![CDATA[" + msg.content + "]]></Content>"+
 				"</xml>";
-	
 	this.res.type('xml'); 
 	this.res.send(out);
 	return this;
@@ -647,8 +678,7 @@ Weixin.prototype.sendVideoMsg = function(msg) {
 						"<Title><![CDATA[" + title + "]]></Title>" +
 						"<Description><![CDATA[" + description + "]]></Description>" +
 					"</Video>" +
-				"</xml>";		
-	
+				"</xml>";
 	this.res.type('xml'); 
 	this.res.send(out);
 	return this;
@@ -688,7 +718,6 @@ Weixin.prototype.sendMusicMsg = function(msg) {
 						"<ThumbMediaId><![CDATA[" + msg.thumbMediaId + "]]></ThumbMediaId>" +
 					"</Music>" +
 				"</xml>";
-
 	this.res.type('xml'); 
 	this.res.send(out);
 	return this;
@@ -737,6 +766,22 @@ Weixin.prototype.sendNewsMsg = function(msg) {
 	this.res.send(out);
 	return this;
 };
+
+
+/************************************************************
+ * 发送消息 - 发送客服消息
+ * 当用户主动发消息给公众号的时候（包括发送信息、点击自定义菜单、订阅事件、扫描二维码事件、
+ * 支付成功事件、用户维权），微信将会把消息数据推送给开发者，开发者在一段时间内（目前修改
+ * 为48小时）可以调用客服消息接口，通过POST一个JSON数据包来发送消息给普通用户，在48小时内
+ * 不限制发送次数。此接口主要用于客服等有人工消息处理环节的功能，方便开发者为用户提供更加
+ * 优质的服务。
+ * 1.发送文本消息
+ * 2.发送图片消息
+ * 3.发送语音消息
+ * 4.发送视频消息
+ * 5.发送音乐消息
+ * 6.发送图文消息
+ ************************************************************/
 
 /**
  * 发送客服消息
@@ -790,7 +835,9 @@ Weixin.prototype.sendCustomTextMsg = function(msg, callback) {
 		})
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 
@@ -815,7 +862,9 @@ Weixin.prototype.sendCustomImageMsg = function(msg, callback) {
 		})
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 
@@ -840,7 +889,9 @@ Weixin.prototype.sendCustomVoiceMsg = function(msg, callback) {
 		})
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 
@@ -867,12 +918,14 @@ Weixin.prototype.sendCustomVideoMsg = function(msg, callback) {
 		})
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 }; 
 
 /**
- * @method sendCustomVideoMsg
+ * @method sendCustomMusicMsg
  * 发送客服消息 - 音乐消息
  */
 Weixin.prototype.sendCustomMusicMsg = function(msg, callback) {
@@ -896,7 +949,9 @@ Weixin.prototype.sendCustomMusicMsg = function(msg, callback) {
 		})
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 
@@ -921,11 +976,90 @@ Weixin.prototype.sendCustomNewsMsg = function(msg, callback) {
 			}
 		})
 	};
-	console.log(options)
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
+
+/************************************************************
+ * 发送消息 - 高级群发接口
+ * 1 上传图文消息素材
+ * 2 根据分组进行群发
+ * 3 根据OpenID列表群发
+ * 4 删除群发
+ * 5 事件推送群发结果
+ ************************************************************/
+/**
+ * @method uploadNews
+ * 上传图文消息素材
+ */
+Weixin.prototype.uploadNews = function(msg, callback) {
+	callback = callback || function(err, res, body) {
+		console.log('default callback function invoked.');
+		console.log(body);
+	}
+	var options = {
+		url: 'https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=' + this.accessToken,
+		method: 'post',
+		body: JSON.stringify({
+			articles: msg.articles
+		})
+	};
+	
+	request(options, function(err, res, body) {
+		if(!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
+	});
+};
+
+/**
+ * 根据分组进行群发
+ */
+// https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN
+Weixin.prototype.sendAllByGroup = function() {
+	
+};
+
+
+
+/**
+ * 根据OpenID列表群发
+ */
+// https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN
+Weixin.prototype.sendByOpenId = function() {
+	
+};
+
+/**
+ * @method deleteMass
+ * 删除群发
+ */
+Weixin.prototype.deleteMass = function() {
+	callback = callback || function(err, res, body) {
+		console.log('default callback function invoked.');
+		console.log(body);
+	}
+	var options = {
+		url: 'https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token=' + this.accessToken,
+		method: 'post',
+		body: JSON.stringify({
+			msgid: msg.msgid
+		})
+	};
+	request(options, function(err, res, body) {
+		if(!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
+	});
+};
+
+
+/**
+ * 事件推送群发结果
+ */
 
 
 /************************************************************
@@ -941,11 +1075,8 @@ Weixin.prototype.sendCustomNewsMsg = function(msg, callback) {
 /**
  * @method createGroup
  * 创建分组
- * 一个公众账号，最多支持创建500个分组。
- * @param {String} name 分组名字（30个字符以内）
- * @param {Function} callback
  */
-Weixin.prototype.createGroup = function(name, callback) {
+Weixin.prototype.createGroup = function(group, callback) {
 	callback = callback || function(err, res, body) {
 		console.log('default callback function invoked.');
 		console.log(body);
@@ -955,9 +1086,7 @@ Weixin.prototype.createGroup = function(name, callback) {
 		url : 'https://api.weixin.qq.com/cgi-bin/groups/create?access_token=' + this.accessToken,
 		method : 'post',
 		body : JSON.stringify({
-			"group" : {
-				"name" : name
-			}
+			"group" : group
 		})
 	};
 	request(options, function(err, res, body) {
@@ -1016,7 +1145,7 @@ Weixin.prototype.getGroupId = function(openid, callback) {
  * @param {String} groupId 分组id，由微信分配
  * @param {String} name 分组名字（30个字符以内）
  */
-Weixin.prototype.updateGroup = function(groupId, name, callback) {
+Weixin.prototype.updateGroup = function(group, callback) {
 	callback = callback || function(err, res, body) {
 		console.log('default callback function invoked.');
 		console.log(body);
@@ -1026,10 +1155,7 @@ Weixin.prototype.updateGroup = function(groupId, name, callback) {
 		url: 'https://api.weixin.qq.com/cgi-bin/groups/update?access_token=' + this.accessToken,
 		method: 'post',
 		body: JSON.stringify({
-			"group": {
-				"id": groupId,
-				"name": name
-			}
+			"group": group
 		})
 	};
 	request(options, function(err, res, body) {
@@ -1043,7 +1169,7 @@ Weixin.prototype.updateGroup = function(groupId, name, callback) {
  * @param {String} openid 用户唯一标识符
  * @param {String} to_groupid 分组id
  */
-Weixin.prototype.updateMemberGroup = function(openid, to_groupid, callback) {
+Weixin.prototype.updateMemberGroup = function(config, callback) {
 	callback = callback || function(err, res, body) {
 		console.log('default callback function invoked.');
 		console.log(body);
@@ -1052,8 +1178,8 @@ Weixin.prototype.updateMemberGroup = function(openid, to_groupid, callback) {
 		url: 'https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=' + this.accessToken,
 		method: 'post',
 		body: JSON.stringify({
-			"openid": openid,
-			"to_groupid": to_groupid
+			"openid": config.openid,
+			"to_groupid": config.to_groupid
 		})
 	};
 	request(options, function(err, res, body) {
@@ -1084,7 +1210,7 @@ Weixin.prototype.getUserInfo = function(config, callback) {
 	var url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + this.accessToken + "&openid=" + openid + "&lang=" + lang;
 	request(url, function(err, res, body) {
 		if (!err && res.statusCode == 200) {
-			callback(err, res, body);
+			callback(JSON.parse(body));
 		}
 	});
 };
@@ -1096,7 +1222,6 @@ Weixin.prototype.getUserInfo = function(config, callback) {
  * 每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，
  * 可以通过多次拉取的方式来满足需求。
  ************************************************************/
-
 /**
  * @method getUsers
  * 获取关注者列表
@@ -1113,11 +1238,10 @@ Weixin.prototype.getUsers = function(nextOpenid, callback) {
 	var url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=" + this.accessToken + "&next_openid=" + nextOpenid;
 	request(url, function(error, response, body) {
 		if (!error && response.statusCode == 200) {
-			callback(error, response, body);
+			callback(JSON.parse(body));
 		}
 	});
 };
-
 
 /************************************************************
  * 用户管理 - 网页授权获取用户基本信息
@@ -1126,7 +1250,6 @@ Weixin.prototype.getUsers = function(nextOpenid, callback) {
  * 3.第三步：刷新access_token（如果需要）
  * 4.第四步：拉取用户信息(需scope为 snsapi_userinfo)
  ************************************************************/
-
 /**
  * @method getOauth2AccessToken
  * 第二步：通过code换取网页授权access_token
@@ -1192,12 +1315,10 @@ Weixin.prototype.getUserinfo = function(access_token, openid, lang, callback) {
  * 自定义菜单创建接口
  * 自定义菜单查询接口
  * 自定义菜单删除接口
- * 自定义菜单事件推送
  ************************************************************/
-
 /**
  * @method createMenu
- * 自定义菜单创建接口
+ * 自定义菜单 - 自定义菜单创建接口
  */
 Weixin.prototype.createMenu = function(menuObj, callback) {
 	callback = callback || function(err, res, body) {
@@ -1210,13 +1331,15 @@ Weixin.prototype.createMenu = function(menuObj, callback) {
 		body: JSON.stringify(menuObj)
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 
 /**
  * @method getMenu
- * 自定义菜单查询接口
+ * 自定义菜单 - 自定义菜单查询接口
  */
 Weixin.prototype.getMenu = function(callback) {
 	callback = callback || function(err, res, body) {
@@ -1227,14 +1350,14 @@ Weixin.prototype.getMenu = function(callback) {
 	
 	request(url, function(error, response, body) {
 		if (!error && response.statusCode == 200) {
-			callback(error, response, body);
+			callback(JSON.parse(body));
 		}
 	});
 };
 
 /**
- * @method getMenu
- * 自定义菜单删除接口
+ * @method deleteMenu
+ * 自定义菜单 - 自定义菜单删除接口
  * 使用接口创建自定义菜单后，开发者还可使用接口删除当前使用的自定义菜单。
  */
 Weixin.prototype.deleteMenu = function(callback) {
@@ -1246,7 +1369,7 @@ Weixin.prototype.deleteMenu = function(callback) {
 	
 	request(url, function(error, response, body) {
 		if (!error && response.statusCode == 200) {
-			callback(error, response, body);
+			callback(JSON.parse(body));
 		}
 	});
 };
@@ -1255,7 +1378,10 @@ Weixin.prototype.deleteMenu = function(callback) {
  * 推广支持
  * 生成带参数的二维码
  ************************************************************/
-
+/**
+ * @method createQrcode
+ * 生成带参数的二维码
+ */
 Weixin.prototype.createQrcode = function(config, callback) {
 	callback = callback || function(err, res, body) {
 		console.log('default callback function invoked.');
@@ -1267,7 +1393,9 @@ Weixin.prototype.createQrcode = function(config, callback) {
 		body: JSON.stringify(config)
 	};
 	request(options, function(err, res, body) {
-		callback(err, res, body);
+		if (!err && res.statusCode == 200) {
+			callback(JSON.parse(body));
+		}
 	});
 };
 

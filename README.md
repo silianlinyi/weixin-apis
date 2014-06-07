@@ -97,7 +97,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'text',
-				content : '这是一段文本'
+				content : '回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）'
 			};
 			break;
 		case '图片':
@@ -105,7 +105,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'image',
-				mediaId : '9s-QtH37gd4SGuILFIYHq1XEWH0jVa1ZZk5I_LQ1AZESJPtc4NXpo0WCsgMfL2Hl'
+				mediaId : '通过上传图片文件，得到的id'
 			};
 			break;
 		case '语音':
@@ -113,7 +113,7 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'voice',
-				mediaId : 'kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012'
+				mediaId : '通过上传语音文件，得到的id'
 			};
 			break;
 		case '视频':
@@ -121,9 +121,9 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'video',
-				title : '这是视频的标题',
-				description : '这是视频的描述',
-				mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
+				title : '视频消息的标题',
+				description : '视频消息的描述',
+				mediaId : '通过上传视频文件，得到的id'
 			};
 			break;
 		case '音乐':
@@ -131,10 +131,10 @@ weixin.on('textMsg', function(data) {
 				toUserName : data.fromUserName,
 				fromUserName : data.toUserName,
 				msgType : 'music',
-				title : "这是音乐标题",
-				description : "这是音乐描述",
-				musicUrl : 'http://xihumaker.jios.org/voice/welcome.mp3',
-				thumbMediaId : 'kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012'
+				title : "音乐标题",
+				description : "音乐描述",
+				musicUrl : '音乐链接',
+				thumbMediaId : '缩略图的媒体id，通过上传多媒体文件，得到的id'
 			};
 			break;
 		case '图文':
@@ -204,9 +204,7 @@ weixin.on('videoMsg', function(data) {
 		toUserName : data.fromUserName,
 		fromUserName : data.toUserName,
 		msgType : 'video',
-		title : '这是视频的标题',
-		description : '这是视频的描述',
-		mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
+		mediaId : '-jI7RharH0_mhI9cN0gLDLrkXZYPbkzCTGcNQzuaRcT4PP2klByRb0RfaagZj_Ob'
 	};
 	weixin.sendMsg(msg);
 });
@@ -255,58 +253,58 @@ weixin.on('viewEventMsg', function(data) {
 
 // 客服消息 - 文本
 //weixin.sendCustomMsg({
-//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType : 'text',
 //	content : "这是一段文本"
-//}, function(data) {// 回调函数，可选
-//	console.log(data);
+//}, function(err, res, body) {// 回调函数，可选
+//	console.log(body);
 //});
 
 // 客服消息 - 图片
 //weixin.sendCustomMsg({
-//	toUserName: 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName: 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType: 'image',
-//	mediaId: '9s-QtH37gd4SGuILFIYHq1XEWH0jVa1ZZk5I_LQ1AZESJPtc4NXpo0WCsgMfL2Hl'
-//}, function(data) {
-//	console.log(data);
+//	mediaId: 'QMzNj-GD7BI_VGiAqc5ONW2CnTDGfRmem1hVdK_nR1p-WEQEb_2W4jfARp5nFn1K'
+//}, function(err, res, body) {
+//	console.log(body);
 //});
 
 // 客服消息 - 语音
 //weixin.sendCustomMsg({
-//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType : 'voice',
-//	mediaId : 'vzM6g1mOhtfovAttPKkWvC217xEIEHyB9vqYIbfnDOWbCBQtCHDDo38W8-qVIhgT'
-//}, function(data) {
-//	console.log(data);
+//	mediaId : '6XL3LGUAhcw9MEYbCzQq-k90j-9B_jxCD24M3uMqexqUljJlzJ7_w4BrjlQDwT3B'
+//}, function(err, res, body) {
+//	console.log(body);
 //});
 
 // 客服消息 - 视频
 //weixin.sendCustomMsg({
-//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType : 'video',
 //	title: '这是视频标题',
 //	description: '这是视频描述',
-//	mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
-//}, function(data) {
-//	console.log(data);
+//	mediaId : '-jI7RharH0_mhI9cN0gLDLrkXZYPbkzCTGcNQzuaRcT4PP2klByRb0RfaagZj_Ob'
+//}, function(err, res, body) {
+//	console.log(body);
 //});
 
 // 客服消息 - 音乐
 //weixin.sendCustomMsg({
-//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType : 'music',
 //	title : "this is title",
 //	description : "this is description",
-//	musicUrl : "http://xihumaker.jios.org/voice/0.mp3",
-//	HQMusicUrl : "http://xihumaker.jios.org/voice/0.mp3",
-//	thumbMediaId : "kXqA2HSvwLdg6GPr0ehf5EAzFsibjJuQ4qjzbuxE-mSLEAVNNRY03JsXq-s2-012"
-//}, function(data) {
-//	console.log(data);
+//	musicUrl : "http://xihumaker.jios.org/voice/welcome.mp3",
+//	HQMusicUrl : "",
+//	thumbMediaId : "QMzNj-GD7BI_VGiAqc5ONW2CnTDGfRmem1hVdK_nR1p-WEQEb_2W4jfARp5nFn1K"
+//}, function(err, res, body) {
+//	console.log(body);
 //});
 
 // 客服消息 - 图文
 //weixin.sendCustomMsg({
-//	toUserName : 'oZ2t3jlm5cpXNF-y-IO0Y5PWTwzc',
+//	toUserName : 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4',
 //	msgType : 'news',
 //
 //	articles : [{
@@ -321,12 +319,149 @@ weixin.on('viewEventMsg', function(data) {
 //		url : "http://www.csdn.net/article/2014-03-07/2818676-baidu-clouda"
 //	}]
 //
-//}, function(data) {
-//	console.log(data);
+//}, function(err, res, body) {
+//	console.log(body);
 //});
 
 app.listen(80);
 
+```
+
+
+### API
+
+#### weixin.configurate 微信接入配置
+
+```
+weixin.configurate({
+	token : '这是你的token',
+	appid : '这是你的appid',
+	secret : '这是你的secret'
+});
+```
+
+#### weixin.checkSignature 验证消息真实性
+
+```
+// 接入验证
+app.get('/verify', function(req, res) {
+	if (weixin.checkSignature(req)) {
+		res.send(200, req.query.echostr);
+	} else {
+		res.send(200, 'fail');
+	}
+});
+```
+
+#### 监听文本消息
+
+```
+weixin.on('textMsg', function(data) {
+	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听图片消息
+
+```
+weixin.on('imageMsg', function(data) {
+	console.log('>>>>>>>>> imageMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听语音消息
+
+```
+weixin.on('voiceMsg', function(data) {
+	console.log('>>>>>>>>> voiceMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听视频消息
+
+```
+weixin.on('videoMsg', function(data) {
+	console.log('>>>>>>>>> videoMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听地理位置消息
+
+```
+weixin.on('locationMsg', function(data) {
+	console.log('>>>>>>>>> locationMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听链接消息
+
+```
+weixin.on('linkMsg', function(data) {
+	console.log('>>>>>>>>> linkMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+
+#### 监听关注事件
+
+```
+weixin.on('subscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> subscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听取消关注事件
+
+```
+weixin.on('unsubscribeEventMsg', function(data) {
+	console.log('>>>>>>>>> unsubscribeEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听上报地理位置事件
+
+```
+weixin.on('locationEventMsg', function(data) {
+	console.log('>>>>>>>>> locationEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听点击菜单拉取消息时的事件推送
+
+```
+weixin.on('clickEventMsg', function(data) {
+	console.log('>>>>>>>>> clickEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
+```
+
+#### 监听点击菜单跳转链接时的事件推送
+
+```
+weixin.on('viewEventMsg', function(data) {
+	console.log('>>>>>>>>> viewEventMsg emit >>>>>>>>>');
+	console.log(data);
+	// TODO
+});
 ```
 
 
