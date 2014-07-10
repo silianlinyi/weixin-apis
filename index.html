@@ -45,7 +45,6 @@
 				<div class="header item">
 					<i class="list layout icon"></i>接受消息
 				</div>
-				<a href="#验证消息真实性" class="item">验证消息真实性</a>
 				<a href="#接收普通消息" class="item">接收普通消息</a>
 				<a href="#接收事件推送" class="item">接收事件推送</a>
 				<a href="#接收语音识别结果" class="item">接收语音识别结果</a>
@@ -146,17 +145,9 @@
 			<p>请开发者注意，由于技术升级，公众平台的开发接口的access_token长度将增长，其存储至少要保留512个字符空间。此修改将在1个月后生效，请开发者尽快修改兼容。</p>
 			<p>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得（需要已经成为开发者，且帐号没有异常状态）。注意调用所有微信接口时均需使用https协议。</p>
 			
-			<h4 class="ui header">getCacheAccessToken：获取缓存中的access_token（异步）</h4>
-			<pre><code>weixin.getCacheAccessToken(function(data) {
-	var access_token = data.access_token;
-	var expires_in = data.expires_in;
-});
-</code></pre>
-			<h4 class="ui header">getCacheAccessTokenSync：获取缓存中的access_token（同步）</h4>
-			<pre><code>var data = weixin.getCacheAccessTokenSync();
-var access_token = data.access_token;
-var expires_in = data.expires_in;
-</code></pre>																																																																																	
+			<h4 class="ui header">reflashAccessToken：刷新access_token</h4>
+			<pre><code>weixin.reflashAccessToken();</code></pre>
+			在开发环境下，一般将这行代码注释掉，不然项目每次重启都会去微信服务器重新获取access_token，而access_token每天的获取次数有限。																																																																													
 
  <h4 class="ui header">getAccessToken：从微信服务器获取一个新的access_token</h4>
 			<pre><code>weixin.getAccessToken(function(data) {
@@ -197,16 +188,8 @@ var expires_in = data.expires_in;
 
 			<!-- =============================================接受消息=================================================== -->
 			<h2 class="ui red header">接受消息</h2>
-			<h3 class="ui header" id="验证消息真实性">1 验证消息真实性</h3>
-			<pre><code>// 接入验证
-app.get('/verify', function(req, res) {
-	if (weixin.checkSignature(req)) {
-		res.send(200, req.query.echostr);
-	} else {
-		res.send(200, 'fail');
-	}
-});</code></pre>
-			<h3 class="ui header" id="接收普通消息">2 接受普通消息</h3>
+
+			<h3 class="ui header" id="接收普通消息">1 接受普通消息</h3>
 			<p>当普通微信用户向公众账号发消息时，微信服务器将POST消息的XML数据包到开发者填写的URL上。各消息类型的推送XML数据包结构如下。</p>
 			<h4 class="ui header">（1）文本消息</h4>
 			<pre><code>// 监听文本消息
@@ -943,35 +926,35 @@ weixin.on('unsubscribeEventMsg', function(data) {
 						<th style="width:470px">描述 </th>
 					</tr>
 					<tr>
-						<td> ToUserName </td>
+						<td> toUserName </td>
 						<td><b>开发者</b>微信号 </td>
 					</tr>
 					<tr>
-						<td> FromUserName </td>
+						<td> fromUserName </td>
 						<td> 发送方帐号（一个OpenID） </td>
 					</tr>
 					<tr>
-						<td> CreateTime </td>
+						<td> createTime </td>
 						<td> 消息创建时间 （整型） </td>
 					</tr>
 					<tr>
-						<td> MsgType </td>
+						<td> msgType </td>
 						<td> 语音为voice </td>
 					</tr>
 					<tr>
-						<td> MediaID </td>
+						<td> mediaID </td>
 						<td> 语音消息媒体id，可以调用多媒体文件下载接口拉取该媒体 </td>
 					</tr>
 					<tr>
-						<td> Format </td>
+						<td> format </td>
 						<td> 语音格式：amr </td>
 					</tr>
 					<tr>
-						<td> Recognition </td>
+						<td> recognition </td>
 						<td> 语音识别结果，UTF8编码 </td>
 					</tr>
 					<tr>
-						<td> MsgID </td>
+						<td> msgID </td>
 						<td> 消息id，64位整型 </td>
 					</tr>
 				</tbody>
@@ -989,18 +972,13 @@ weixin.on('unsubscribeEventMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听文本消息，并且在收到文本消息时，回复一段文本
-weixin.on('textMsg', function(data) {
-	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
-	console.log(data);
-	var msg = {
-		toUserName : data.fromUserName,
-		fromUserName : data.toUserName,
-		msgType : 'text',
-		content : '这是一段文本'
-	};
-	weixin.sendMsg(msg);
-});</code></pre>
+			<pre><code>var msg = {
+	toUserName : data.fromUserName,
+	fromUserName : data.toUserName,
+	msgType : 'text',
+	content : '这是一段文本'
+};
+weixin.sendMsg(msg);</code></pre>
 			<p>
 				参数说明：（createTime属性已经默认添加，开发者不用手动添加）
 			</p>
@@ -1043,20 +1021,15 @@ weixin.on('textMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听图片消息，并且在收到图片消息时，回复收到的图片
-weixin.on('imageMsg', function(data) {
-	console.log('>>>>>>>>> imageMsg emit >>>>>>>>>');
-	console.log(data);
-	var msg = {
-		toUserName : data.fromUserName,
-		fromUserName : data.toUserName,
-		msgType : 'image',
-		mediaId : data.mediaId
-	};
-	weixin.sendMsg(msg);
-});</code></pre>
+			<pre><code>var msg = {
+	toUserName : data.fromUserName,
+	fromUserName : data.toUserName,
+	msgType : 'image',
+	mediaId : data.mediaId
+};
+weixin.sendMsg(msg);</code></pre>
 			<p>
-				参数说明：（createTime属性已经默认添加，开发者不用手动添加）
+				参数说明：
 			</p>
 			<table border="1" cellspacing="0" cellpadding="4">
 				<tbody>
@@ -1097,18 +1070,13 @@ weixin.on('imageMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听语音消息，并且在收到一条语音消息时，回复收到的语音消息
-weixin.on('voiceMsg', function(data) {
-	console.log('>>>>>>>>> voiceMsg emit >>>>>>>>>');
-	console.log(data);
-	var msg = {
-		toUserName : data.fromUserName,
-		fromUserName : data.toUserName,
-		msgType : 'voice',
-		mediaId : data.mediaId
-	};
-	weixin.sendMsg(msg);
-});</code></pre>
+			<pre><code>var msg = {
+	toUserName : data.fromUserName,
+	fromUserName : data.toUserName,
+	msgType : 'voice',
+	mediaId : data.mediaId
+};
+weixin.sendMsg(msg);</code></pre>
 			<p>
 				参数说明：
 			</p>
@@ -1151,20 +1119,15 @@ weixin.on('voiceMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听视频消息，并且在收到一条视频消息时，回复一条视频消息
-weixin.on('videoMsg', function(data) {
-	console.log('>>>>>>>>> videoMsg emit >>>>>>>>>');
-	console.log(data);
-	var msg = {
-		toUserName : data.fromUserName,
-		fromUserName : data.toUserName,
-		msgType : 'video',
-		title : '这是视频的标题',
-		description : '这是视频的描述',
-		mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
-	};
-	weixin.sendMsg(msg);
-});</code></pre>
+			<pre><code>var msg = {
+	toUserName : data.fromUserName,
+	fromUserName : data.toUserName,
+	msgType : 'video',
+	title : '这是视频的标题',
+	description : '这是视频的描述',
+	mediaId : '7bTTH39M91xDI6ItEtN13bYrejJEUPWgrK5NTrqltHdOBXEHA95VFAGFxRlhalxY'
+};
+weixin.sendMsg(msg);</code></pre>
 			<p>
 				参数说明：
 			</p>
@@ -1217,25 +1180,16 @@ weixin.on('videoMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听文本消息，并且当用户发送了“音乐”关键字时，回复一条音乐消息
-weixin.on('textMsg', function(data) {
-    console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
-    console.log(data);
-    switch (data.content) {
-        case '音乐':
-            var msg = {
-                toUserName : data.fromUserName,
-                fromUserName : data.toUserName,
-                msgType : 'music',
-                title : "这是音乐标题",
-                description : "这是音乐描述",
-                musicUrl : '音乐Url',
-                thumbMediaId : 'MhKkAXP56io9Xx5hwzuVVzwWWSFH3LTrDl65efnD9BkXAvlc1Bjn8FhEqrWRa18f'
-            };
-            break;
-    }
-    weixin.sendMsg(msg);
-});</code></pre>
+			<pre><code>var msg = {
+        toUserName : data.fromUserName,
+        fromUserName : data.toUserName,
+        msgType : 'music',
+        title : "这是音乐标题",
+        description : "这是音乐描述",
+        musicUrl : '音乐Url',
+        thumbMediaId : 'MhKkAXP56io9Xx5hwzuVVzwWWSFH3LTrDl65efnD9BkXAvlc1Bjn8FhEqrWRa18f'
+    };
+weixin.sendMsg(msg);</code></pre>
 			<p>
 				参数说明：
 			</p>
@@ -1298,35 +1252,27 @@ weixin.on('textMsg', function(data) {
 			<p>
 				示例：
 			</p>
-			<pre><code>// 监听文本消息，并且当用户发送了“图文”关键字时，回复一条图文消息
-weixin.on('textMsg', function(data) {
-	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
-	console.log(data);
-	switch (data.content) {
-		case '图文':
-		var articles = [];
-		articles[0] = {
-			title : "每个Web开发者必备的9个软技能",
-			description : "每个Web开发者除了精通技术，还应必备以下9个软技能：交流、倾听、适应、合作、积极的态度、有职业道德、判断/辨别、批判性思维和自负管理等",
-			picUrl : "http://cms.csdnimg.cn/article/201404/01/5339fcde7d200.jpg",
-			url : "http://www.csdn.net/article/2014-04-01/2819079-9-soft-skills-every-web-developer-should-master"
-		};
-		articles[1] = {
-			title : "轻松打造品牌轻应用：实时Web App开发框架Clouda",
-			description : "Clouda是百度历时两年共同研发的开源App技术框架，基于Node.js，简单易用，完美结合BAE，具备跨终端、云端统一、随动反馈和全实时等新一代技术能力。",
-			picUrl : "http://cms.csdnimg.cn/article/201403/07/53196741f0a1d_middle.jpg",
-			url : "http://www.csdn.net/article/2014-03-07/2818676-baidu-clouda"
-		};
-		var msg = {
-			toUserName : data.fromUserName,
-			fromUserName : data.toUserName,
-			msgType : 'news',
-			articles : articles
-		};
-		break;
-	}
-	weixin.sendMsg(msg);
-});</code></pre>																											
+			<pre><code>var articles = [];
+articles[0] = {
+	title : "每个Web开发者必备的9个软技能",
+	description : "每个Web开发者除了精通技术，还应必备以下9个软技能：交流、倾听、适应、合作、积极的态度、有职业道德、判断/辨别、批判性思维和自负管理等",
+	picUrl : "http://cms.csdnimg.cn/article/201404/01/5339fcde7d200.jpg",
+	url : "http://www.csdn.net/article/2014-04-01/2819079-9-soft-skills-every-web-developer-should-master"
+};
+articles[1] = {
+	title : "轻松打造品牌轻应用：实时Web App开发框架Clouda",
+	description : "Clouda是百度历时两年共同研发的开源App技术框架，基于Node.js，简单易用，完美结合BAE，具备跨终端、云端统一、随动反馈和全实时等新一代技术能力。",
+	picUrl : "http://cms.csdnimg.cn/article/201403/07/53196741f0a1d_middle.jpg",
+	url : "http://www.csdn.net/article/2014-03-07/2818676-baidu-clouda"
+};
+var msg = {
+	toUserName : data.fromUserName,
+	fromUserName : data.toUserName,
+	msgType : 'news',
+	articles : articles
+};
+weixin.sendMsg(msg);
+</code></pre>																											
 
 			<p>
 				参数说明：
@@ -1824,6 +1770,47 @@ weixin.on('textMsg', function(data) {
 
 			<h4 class="ui header">（2）根据分组进行群发（TODO）</h4>
 			<h4 class="ui header">（3）根据OpenID列表群发（TODO）</h4>
+			<p>图文消息</p>
+			<pre><code>weixin.sendByOpenIdList({
+	touser: [
+		"OPENID1",
+		"OPENID2"
+	],
+	msgType: 'news',
+	mediaId: '-NyQKU1aM-Ka1YVcxfmzAUwXeXQ_Er1eN0T6Bl71HP4BmYlPuVPWtOIEQSvnyqlW'
+});</code></pre>
+
+			<p>文本消息</p>
+			<pre><code>weixin.sendByOpenIdList({
+	touser: [
+		"OPENID1",
+		"OPENID2"
+	],
+	msgType: 'text',
+	content: '文本内容'
+});</code></pre>
+
+			<p>语音消息</p>
+			<pre><code>weixin.sendByOpenIdList({
+	touser: [
+		"OPENID1",
+		"OPENID2"
+	],
+	msgType: 'voice',
+	mediaId: '-NyQKU1aM-Ka1YVcxfmzAUwXeXQ_Er1eN0T6Bl71HP4BmYlPuVPWtOIEQSvnyqlW'
+});</code></pre>
+
+			<p>图片消息</p>
+			<pre><code>weixin.sendByOpenIdList({
+	touser: [
+		"OPENID1",
+		"OPENID2"
+	],
+	msgType: 'image',
+	mediaId: 'IMAGE_MEDIAID'
+});</code></pre>
+			
+			
 			<h4 class="ui header">（4）删除群发（TODO）</h4>
 			<h4 class="ui header">（5）事件推送群发结果（TODO）</h4>
 			
@@ -1841,9 +1828,9 @@ weixin.on('textMsg', function(data) {
 			<p>一个公众账号，最多支持创建500个分组。</p>
 			<p>示例：</p>
 			<pre><code>weixin.createGroup({
-	name: "testname"
-}, function(err, res, body) {
-	console.log(body);
+	name: "私人定制"
+}, function(data) {
+	console.log(data);
 });</code></pre>
 			<p>参数说明：</p>		
 			<table border="1" cellspacing="0" cellpadding="5">
@@ -1888,8 +1875,8 @@ weixin.on('textMsg', function(data) {
 			
 			<h4 class="ui header">（2）查询所有分组</h4>
 			<p>示例：</p>
-			<pre><code>weixin.getGroups(function(err, res, body) {
-	console.log(body);
+			<pre><code>weixin.getGroups(function(data) {
+	console.log(data);
 });</code></pre>
 			<p>返回说明 正常时的返回JSON数据包示例：</p>
 			<pre><code>{
@@ -1946,8 +1933,8 @@ weixin.on('textMsg', function(data) {
 			<h4 class="ui header">（3）查询用户所在分组</h4>
 			<p>通过用户的OpenID查询其所在的GroupID。</p>
 			<p>示例：</p>
-			<pre><code>weixin.getGroupId("ojim5txO8ivc0Ff2LKW1nlUJ9hM4", function(err, res, body) {
-	console.log(body);
+			<pre><code>weixin.getGroupId('openid', function(data) {
+	console.log(data);
 });</code></pre>
 			<p>参数说明：</p>
 			<table border="1" cellspacing="0" cellpadding="5">
@@ -1982,10 +1969,10 @@ weixin.on('textMsg', function(data) {
 			<h4 class="ui header">（4）修改分组名</h4>
 			<p>示例：</p>
 			<pre><code>weixin.updateGroup({
-	id: 100,
-	name: "GROUP_NAME"
-}, function(err, res, body) {
-	console.log(body);
+	id: 102,
+	name: '私人定制'
+}, function(data) {
+	console.log(data);
 });</code></pre>
 			<p>参数说明：</p>
 			<table border="1" cellspacing="0" cellpadding="5">
@@ -2013,10 +2000,10 @@ weixin.on('textMsg', function(data) {
 			<h4 class="ui header">（5）移动用户分组</h4>
 			<p>示例：</p>
 			<pre><code>weixin.updateMemberGroup({
-	"openid": testParams.toUserName,
-	"to_groupid": 100
-}, function(err, res, body) {
-	console.log(body);
+	openid: 'openid',
+	toGroupid: 'to_groupid'
+}, function(data) {
+	console.log(data);
 });</code></pre>
 			<p>参数说明：</p>
 			<table border="1" cellspacing="0" cellpadding="5">
@@ -2047,8 +2034,7 @@ weixin.on('textMsg', function(data) {
 			<p>开发者可通过OpenID来获取用户基本信息。请使用https协议。</p>
 			<p>示例：</p>
 			<pre><code>weixin.getUserInfo({
-	openId: "OPENID",
-	lang: "zh_CN"
+	openid: 'openid'
 }, function(data) {
 	console.log(data);
 });</code></pre>
