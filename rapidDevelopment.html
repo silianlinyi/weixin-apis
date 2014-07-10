@@ -47,6 +47,30 @@
 			</div>
 			
 			<div class="ui raised segment">
+				
+				<h3 class="ui header black">最简单的一个示例</h3>
+				<pre><code>var express = require('express');
+var weixin = require('weixin-apis');
+var app = express();
+
+weixin.configurate({
+	app: app,
+	token : '你的token',
+	appid : '你的appid（可选）',
+	secret : '你的secret（可选）'
+});
+
+weixin.on('textMsg', function(data) {
+	var msg = {
+		toUserName : data.fromUserName,
+		fromUserName : data.toUserName,
+		msgType : 'text',
+		content : data.content
+	};
+	weixin.sendMsg(msg);
+})
+
+app.listen(80);</code></pre>
 			
 				<h3 class="ui header black">第一步 新建一个express项目</h3>
 				<p>在控制台下运行命令<a class="inlinecode">express -e weixin_demo</a>，如下所示：</p>
@@ -91,34 +115,112 @@
 				<h3 class="ui header black">第三步 修改app.js文件：</h3>
 
 				<pre><code>var express = require('express');
+var path = require('path');
 var weixin = require('weixin-apis');
 var app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', function(req, res) {
+	res.send('hi');
+});
+
 // 微信接入配置
 weixin.configurate({
-	token : '这是你的TOKEN',
-	appid : '这是你的APPID',
-	secret : '这是你的SECRET'
+	app: app,
+	token : '你的token',
+	appid : '你的appid',
+	secret : '你的srcret'
 });
+//weixin.reflashAccessToken();
 
-// 接入验证
-app.get('/verify', function(req, res) {
-	if (weixin.checkSignature(req)) {
-		res.send(200, req.query.echostr);
-	} else {
-		res.send(200, 'fail');
-	}
-});
-
-// Start
-app.post('/verify', function(req, res) {
-	weixin.loop(req, res);
-});
+var TEST_DATA = {
+	IMAGE_MEDIAID:'I5iGvZYycXfeaiNGdATej61tXAsEQx0ANLepzfl7ie59stvmDatIqOW2JB_mO5qw',
+	VOICE_MEDIAID: 'f2VP_PmJMfKBjIClno8LUFZYlmVJ9jXD3azO3t6FMc0zITeE6pxyRAFrBpaQwxlq',
+	VIDEO_MEDIAID: 'FuEuAXn-o9FI0zXF7Lb-UHfBFV0VP0fKMc99amuNLl5ksJr0fVlw0x7IbdJMzWuA',
+	THUMB_MEDIA_ID: 'I5iGvZYycXfeaiNGdATej61tXAsEQx0ANLepzfl7ie59stvmDatIqOW2JB_mO5qw',
+	MUSIC_URL: 'http://xihumaker.jios.org/music/test.mp3',
+	TOUSERNAME: 'ojim5txO8ivc0Ff2LKW1nlUJ9hM4'
+};
 
 // 监听文本消息
 weixin.on('textMsg', function(data) {
 	console.log('>>>>>>>>> textMsg emit >>>>>>>>>');
 	console.log(data);
+	var content = data.content;
+	var msg;
+	switch(content) {
+		case '文本':
+			msg = {
+				toUserName : data.fromUserName,
+				fromUserName : data.toUserName,
+				msgType : 'text',
+				content : '这是一段文本'
+			};
+			break;
+		case '图片':
+			msg = {
+				toUserName : data.fromUserName,
+				fromUserName : data.toUserName,
+				msgType : 'image',
+				mediaId : TEST_DATA.IMAGE_MEDIAID
+			};
+			break;
+		case '语音':
+			msg = {
+				toUserName: data.fromUserName,
+				fromUserName: data.toUserName,
+				msgType: 'voice',
+				mediaId: TEST_DATA.VOICE_MEDIAID
+			};
+			break;
+		case '视频':
+			msg = {
+				toUserName: data.fromUserName,
+				fromUserName: data.toUserName,
+				msgType: 'video',
+				mediaId: TEST_DATA.VIDEO_MEDIAID
+			};
+			break;
+		case '音乐':
+			msg = {
+				toUserName: data.fromUserName,
+				fromUserName: data.toUserName,
+				msgType: 'music',
+				musicUrl: TEST_DATA.MUSIC_URL,
+				HQMusicUrl: TEST_DATA.MUSIC_URL,
+				thumbMediaId: TEST_DATA.THUMB_MEDIA_ID
+			};
+			break;
+		case '图文':
+			msg = {
+				toUserName: data.fromUserName,
+				fromUserName: data.toUserName,
+				msgType: 'news',
+				articles: [{
+					title: '从Objective-C到Swift',
+					description: '2014年WWDC大会，苹果在毫无预兆的情况下发布了Swift语言。Swift背后的概念大多与Objective-C类似，但更为简洁、自然，也吸收了很多其他语言的语法。本文将对Swift的语法、特点及改进进行全面介绍。',
+					picUrl: 'http://images.csdn.net/20140709/swift_%E5%89%AF%E6%9C%AC_%E5%89%AF%E6%9C%AC.jpg',
+					url: 'http://www.csdn.net/article/2014-07-08/2820568'
+				}, {
+					title: '三款开源工具让你的演示脱颖而出',
+					description: '这些年，用来创建幻灯片的演示框架数目激增，这些框架充分发挥了HTML5、CSS3和JavaScript的优势，只需要一个普通的浏览器就可以创建属于你的幻灯片。',
+					picUrl: 'http://cms.csdnimg.cn/article/201407/09/53bca9b695af3.jpg',
+					url: 'http://code.csdn.net/news/2820582'
+				}]
+			};
+			break;
+		default:
+			msg = {
+				toUserName : data.fromUserName,
+				fromUserName : data.toUserName,
+				msgType : 'text',
+				content : data.content
+			};
+			break;
+	}
+	console.log(msg);
+	weixin.sendMsg(msg);
 });
 
 // 监听图片消息
@@ -188,7 +290,7 @@ weixin.on('viewEventMsg', function(data) {
 	console.log(data);
 });
 
-app.listen(80); </code></pre>
+app.listen(80);</code></pre>
 
 				<p>更多API请参考：<a href="./index.html">API Document</a></p>
 				
