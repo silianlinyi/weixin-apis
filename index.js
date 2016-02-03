@@ -60,16 +60,7 @@ Weixin.prototype.init = function () {
 
     // 正常情况下access_token有效期为3600秒
     setInterval(function () {
-        self.getAccessToken(function (data) {
-            var ret = JSON.parse(data);
-            if (ret.access_token) {//获取成功
-                console.log('access_token获取成功');
-                self.saveAccessToken(data);
-                self.accessToken = ret.access_token;
-            } else {
-                console.log("access_token获取失败");
-            }
-        });
+        self.reflashAccessToken();
     }, 3600000);
 
     self.URL_LIST = {
@@ -155,6 +146,7 @@ Weixin.prototype.reflashAccessToken = function () {
             self.accessToken = ret.access_token;
         } else {
             console.log("access_token获取失败");
+            self.reflashAccessToken();
         }
     });
 };
